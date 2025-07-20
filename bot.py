@@ -13,7 +13,8 @@ from features import (
     get_available_symbols
 )
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+BOT_TOKEN = os.getenv("
+7815435770:AAGXE-Ug3gPT9hG349hg0tUUgyuwaNJFThE")
 bot = telebot.TeleBot(BOT_TOKEN)
 
 # ⬇️ تسجيل الحساب في EO Broker
