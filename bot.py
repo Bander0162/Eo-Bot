@@ -1,3 +1,4 @@
+from features.manual_trade import predict_direction, execute_manual_trade
 import os
 import telebot
 from telebot import types
@@ -74,3 +75,28 @@ def handle_manual_trade(call):
     bot.send_message(call.message.chat.id, msg)
 
 bot.infinity_polling()
+@bot.message_handler(commands=["manual_trade"])
+def manual_trade_handler(message):
+    user_id = message.chat.id
+    symbols = ["EURUSD", "GBPUSD", "USDJPY", "BTCUSD", "ETHUSD"]
+    
+    # إعداد قائمة أزرار
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+    for symbol in symbols:
+        markup.add(types.KeyboardButton(symbol))
+
+    bot.send_message(user_id, "📌 اختر العملة التي تريد التداول عليها:", reply_markup=markup)
+
+    bot.register_next_step_handler(message, process_symbol_selection)
+
+def process_symbol_selection(message):
+    user_id = message.chat.id
+    symbol = message.text.strip().upper()
+    
+    direction = predict_direction(symbol)
+    duration = 60  # تقدر تخلي المستخدم يحددها لاحقاً
+    
+    result = execute_manual_trade(user_id, symbol, direction, duration)
+    
+    bot.send_message(user_id, f"🚀 الاتجاه المتوقع: {direction.upper()}")
+    bot.send_message(user_id, result)
