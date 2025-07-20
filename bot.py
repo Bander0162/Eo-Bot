@@ -10,6 +10,7 @@ def stop(update, context):
     update.message.reply_text("تم إيقاف البوت ❌")
 
 updater = Updater(token=os.getenv("BOT_TOKEN"), use_context=True)
+updater.bot.delete_webhook(drop_pending_updates=True)
 dispatcher = updater.dispatcher
 dispatcher.add_handler(CommandHandler("start", start))
 dispatcher.add_handler(CommandHandler("stop", stop))
