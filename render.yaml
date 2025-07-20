@@ -7,3 +7,5 @@ services:
     environment:
       - key: PYTHON_VERSION
         value: 3.10.12
+      - key: BOT_TOKEN
+         value: 7815435770:AAGXE-Ug3gPT9hG349hg0tUUgyuwaNJFThE
