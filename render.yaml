@@ -1,6 +1,6 @@
 services:
   - type: worker
-    name: eo-bot
+    name: EO-BOT
     env: python
     buildCommand: "pip install -r requirements.txt"
     startCommand: "python bot.py"
