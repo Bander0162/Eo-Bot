@@ -1,3 +1,4 @@
+from features.news_analysis import get_market_news, get_market_safety, detect_manipulation, get_best_symbols
 import requests
 from bs4 import BeautifulSoup
 
