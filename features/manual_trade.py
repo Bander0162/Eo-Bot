@@ -1,4 +1,4 @@
-from features.manual_trade import predict_direction, execute_manual_trade
+from features.helpers import predict_direction, get_available_symbols
 import random
 
 # العملات المتاحة (منصة EO Broker أو حسب ما يدعمه البوت)
