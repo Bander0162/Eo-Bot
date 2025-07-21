@@ -37,6 +37,7 @@ def send_welcome(message):
         types.KeyboardButton("🚨 مراقبة التلاعب"),
         types.KeyboardButton("⏱️ وقت التداول"),
         types.KeyboardButton("💰 نوع رأس المال")
+        types.KeyboardButton("تحديد عدد الصفقات"),
     )
     bot.send_message(message.chat.id, "أهلاً بك! اختر من الأوامر:", reply_markup=markup)
 
@@ -124,6 +125,31 @@ def save_capital_type(message):
     response = set_trade_settings("capital_type", message.text)
     bot.send_message(message.chat.id, f"✅ تم تعيين نوع رأس المال: {message.text}")
 
+@bot.message_handler(func=lambda msg: msg.text == "تحديد عدد الصفقات")
+def handle_set_max_trades(message):
+    bot.send_message(message.chat.id, "🔢 أرسل الحد الأقصى من الصفقات اليومية (مثلاً: 5)")
+    bot.register_next_step_handler(message, save_max_trades)
+
+def save_max_trades(message):
+    try:
+        max_trades = int(message.text)
+        trade_limits.set_max_trades(max_trades)
+        trade_limits.reset_trades()
+        bot.send_message(message.chat.id, f"✅ تم تحديد الحد الأقصى من الصفقات إلى {max_trades}")
+    except:
+        bot.send_message(message.chat.id, "❌ لم يتم التحديث. أرسل عددًا صحيحًا.")
+
+def execute_manual(message, symbol, direction, duration):
+    if trade_limits.can_open_trade():
+        try:
+            # فتح صفقة يدوية
+            result = client.buy(amount=10, symbol=symbol, direction=direction, duration=duration)
+            trade_limits.increment_trade()
+        except Exception as e:
+            bot.send_message(message.chat.id, "❌ حدث خطأ أثناء تنفيذ الصفقة.")
+    else:
+        bot.send_message(message.chat.id, "⚠️ لقد وصلت إلى الحد الأقصى من الصفقات اليوم.")
+        
 keep_alive()
 # تشغيل البوت
 bot.infinity_polling()
