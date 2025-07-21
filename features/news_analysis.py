@@ -1,6 +1,19 @@
 import requests
 import os
+# features/news_analysis.py
+import requests
+from bs4 import BeautifulSoup
 
+def fetch_trendview_news():
+    url = "https://trendview.io/news "  # رابط الأخبار
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    news_items = soup.find_all("h2", class_="post-title")  # تعديل حسب الموقع
+
+    news_list = []
+    for item in news_items[:5]:  # أول 5 أخبار
+        news_list.append(item.get_text(strip=True))
+    return news_list
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 
 def get_market_news():
