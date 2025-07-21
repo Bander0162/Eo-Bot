@@ -123,5 +123,6 @@ def save_capital_type(message):
     response = set_trade_settings("capital_type", message.text)
     bot.send_message(message.chat.id, f"✅ تم تعيين نوع رأس المال: {message.text}")
 
+keep_alive()
 # تشغيل البوت
 bot.infinity_polling()
