@@ -1,3 +1,4 @@
+from keep_alive import keep_alive
 import os
 import telebot
 from telebot import types
