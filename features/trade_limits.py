@@ -1,5 +1,5 @@
 # تحديد عدد الصفقات اليومية
-MAX_TRADES = 5  # الحد الأقصى من الصفقات
+MAX_TRADES = 20 # الحد الأقصى من الصفقات
 trade_count = 0  # العداد
 
 def can_open_trade():
