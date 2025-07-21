@@ -1,3 +1,4 @@
+from features.trade_limits import can_open_trade, increment_trade
 from keep_alive import keep_alive
 import os
 import telebot
