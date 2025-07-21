@@ -1,4 +1,3 @@
-from features.trade_limits import can_open_trade, increment_trade
 from keep_alive import keep_alive
 import os
 import telebot
@@ -20,6 +19,7 @@ from features.helpers import (
     stop_auto_trade,
     set_trade_settings
 )
+from features.trade_limits import can_open_trade, increment_trade
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 bot = telebot.TeleBot(BOT_TOKEN)
